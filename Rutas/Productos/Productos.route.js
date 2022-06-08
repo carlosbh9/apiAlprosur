@@ -1,7 +1,9 @@
 const exs = require("express")
 const rtr = exs.Router()
 
-const productoService = require("../../Servicios/Productos.service")
+const productoService = require("../../Servicios/Productos.service");
+const controlValidarDato = require("../../middlewares/validar.middleware")
+const {crearProductoEsquema, actProductoEsquema, buscarProductoEsquema } = require("../../schemas/producto.schema")
 const svc = new productoService
 
 rtr.get('/', (req, res) =>{
@@ -14,7 +16,7 @@ rtr.get('/lista', (req, res) =>{
 })
 
 //Nuevo Producto
-rtr.post('/', (req,res)=>{
+rtr.post('/', controlValidarDato(crearProductoEsquema, 'body') ,(req,res)=>{
   const aux = req.body
   svc.Nuevo(aux)
 
@@ -25,13 +27,19 @@ rtr.post('/', (req,res)=>{
 })
 
 //Actualizar Producto
-rtr.put('/:id', (req,res) =>{
-  const { id } = req.params
+rtr.put('/:id',controlValidarDato(actProductoEsquema, 'body') ,async (req,res,next) =>{
+ try {
+   const { id } = req.params
   const aux = req.body
+  const msj = await svc.Actualizar(id, aux)
   res.json({
-    mensaje: svc.Actualizar(id, aux),
+    mensaje: msj,
     datosInsertados: aux
   })
+ } catch (error) {
+   next(error)
+ }
+
 })
 
 //Actualización Parcial de Producto

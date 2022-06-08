@@ -15,9 +15,14 @@ rtr.get('/', (req, res) =>{
 })
 
 //Lista de ventas
-rtr.get('/lista', async (req, res) =>{
-  const productos = await svc.findAll()
+rtr.get('/lista', async (req, res,next) =>{
+  try {
+    const productos = await svc.findAll()
   res.status(200).json(productos)
+  } catch (error) {
+    next(error)
+  }
+
 })
 
 //Nuevo venta
@@ -70,7 +75,7 @@ rtr.delete('/:id',controlValidar(findByVentaSchema, 'params') , async(req,res, n
 });
 
 //Buscar venta
-rtr.get('/:id', controlValidar(findByVentaSchema, 'params'),async(req,res ,next)=>{
+rtr.get('/:id', controlValidar(findByVentaSchema, 'params'), async(req,res ,next)=>{
   try {
     const { id } = req.params;
     const venta = await svc.findBy(id);

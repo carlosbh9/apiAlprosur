@@ -12,7 +12,7 @@ const crearVentaSchema = Joi.object({
 });
 
 const actualizarVentaSchema = Joi.object({
-  id: id.required(),
+  id,
   cliente ,
   fecha,
   monto

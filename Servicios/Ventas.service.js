@@ -10,6 +10,7 @@ Ventas = []
   }
 
 
+
   //Nueva Venta
   create(aux){
     const tamaño = this.Ventas.length
@@ -94,10 +95,8 @@ Ventas = []
 
     const index = Number(id)
     const venta = this.Ventas.find(item => item.id === index)
-    if (!venta){
+    if (venta == undefined){
       throw boom.notFound('Error, ID no válida/encontrada');
-    }if(!venta.esVisible){
-      throw boom.forbidden('venta no encontrada');
     }
     return venta;
   }
@@ -111,9 +110,7 @@ Ventas = []
 
   }
 
-  // findBy(id){
-  //   return this.Ventas.find(item => item.id === id);
-  // }
+
 }
 
 module.exports = VentasService
