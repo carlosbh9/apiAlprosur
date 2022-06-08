@@ -14,7 +14,7 @@ const boom = require('@hapi/boom');
 
 function controlaValidar(schema,objeto){
   return (req, res , next) => {
-    const data = rep[objeto];
+    const data = req[objeto];
     const {error} = schema.validate(data)
 
   if (error){

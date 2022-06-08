@@ -57,10 +57,10 @@ try {
 })
 
 //Borrar venta
-rtr.delete('/:id',controlValidar(findByVentaSchema, 'params') ,(req,res, next) =>{
+rtr.delete('/:id',controlValidar(findByVentaSchema, 'params') , async(req,res, next) =>{
   try {
      const { id } = req.params;
-  const venta = svc.delete(id);
+  const venta = await svc.delete(id);
   res.status(200).json(venta);
   } catch (error) {
     next(error);

@@ -1,11 +1,11 @@
 const Joi = require('@hapi/joi');
 
-const id = Joi.string();
+const id = Joi.number();
 const cliente = Joi.string();
 const fecha = Joi.string();
 const monto = Joi.number();
 const crearVentaSchema = Joi.object({
-  id: id.required(),
+  id: id,
   cliente: cliente.required(),
   fecha: fecha.required(),
   monto: monto.required()

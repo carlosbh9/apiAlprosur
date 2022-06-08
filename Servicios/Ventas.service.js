@@ -1,4 +1,4 @@
-const { rejects } = require("assert")
+const { rejects, throws } = require("assert")
 const boom = require("@hapi/boom");
 const joi = require("@hapi/joi");
 
@@ -54,16 +54,27 @@ Ventas = []
   }
 
   //Borrar venta
-  delete(index){
-
-    if (index <= 0 || index > this.Ventas.length){
-      throw boom.notFound('Error, ID no válida/encontrada')
-    }else{
-      this.Ventas.splice(index-1,1)
-      msj = "Venta borrada"
-
+  delete(id){
+    const index = Number(id)
+    const posicion = this.Ventas.findIndex(item => item.id === index);
+    if(posicion===-1){
+      throw boom.notFound('Error, ID no válida/encontrada');
     }
-    return msj
+    this.Ventas.splice(posicion,1);
+    return {
+      mensaja: 'operacion realizada',
+      index
+    }
+
+
+    // if (index <= 0 || index > this.Ventas.length){
+    //   throw boom.notFound('Error, ID no válida/encontrada')
+    // }else{
+    //   this.Ventas.splice(index-1,1)
+    //   msj = "Venta borrada"
+
+    // }
+    // return msj
   }
 
   //BuscarVenta
