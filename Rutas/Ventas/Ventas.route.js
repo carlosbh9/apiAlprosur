@@ -26,14 +26,16 @@ rtr.get('/lista', async (req, res,next) =>{
 })
 
 //Nuevo venta
-rtr.post('/', controlValidar(crearVentaSchema, 'body'),(req,res)=>{
-  const aux = req.body
-  svc.create(aux)
+rtr.post('/', controlValidar(crearVentaSchema, 'body'),async (req,res, next )=>{
 
-  res.status(201).json({
-    mensaje: "Venta agregado",
-    Datos: aux
-  })
+  try {
+    const body = req.body;
+  const venta = await svc.create(body);
+  res.status(201).json(venta);
+  } catch (error) {
+    next(error);
+  }
+
 })
 
 //Actualizar venta
