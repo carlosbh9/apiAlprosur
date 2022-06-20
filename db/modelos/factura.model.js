@@ -36,7 +36,15 @@ const facturaSchema = {
       model: 'clientes'
     },
     field: 'perteneceCliente'
+  },ventaId: {
+    allowNull: false,
+    type: DataTypes.SMALLINT,
+    references: {
+      model: 'ventas'
+    },
+    field: 'contieneVenta'
   }
+
 }
 
 class Factura extends Model{
@@ -46,6 +54,9 @@ class Factura extends Model{
     })
     this.belongsTo(models.cliente, {
       as: 'cliente'
+    })
+    this.belongsTo(models.cliente, {
+      as: 'venta'
     })
 
   }

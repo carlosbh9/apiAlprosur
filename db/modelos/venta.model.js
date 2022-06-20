@@ -14,7 +14,7 @@ const VentasSchema = {
   cliente: {
     allowNull: false,
     type: DataTypes.STRING,
-
+    field: 'Nombre cliente'
   },
 
   fecha: {
@@ -25,12 +25,22 @@ const VentasSchema = {
     allowNull: true,
     type: DataTypes.STRING,
     defaultValue: 0
+  },
+  clienteId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'clientes'
+    },
+    field: 'idCliente'
   }
-
 };
 
 class Venta extends Model{
-  static associate(){
+  static associate(models){
+    this.belongsTo(models.cliente, {
+      as: 'cliente'
+    })
  }
   static config(sequelize){
     return{
@@ -41,6 +51,4 @@ class Venta extends Model{
   }
   }
 };
-
-
 module.exports={VENTA_TABLE,VentasSchema,Venta};
