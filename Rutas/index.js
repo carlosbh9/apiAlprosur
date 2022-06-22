@@ -4,6 +4,7 @@ const exs = require("express")
 const ProductosRuta = require ("./Productos/Productos.route")
 const LotesRuta = require ("./Lotes/Lotes.route")
 const VentasRuta = require ("./Ventas/Ventas.route")
+const ClientesRuta = require ("./Clientes/Clientes.route")
 
 function routes(app){
   const ruta = exs.Router()
@@ -11,6 +12,7 @@ function routes(app){
   ruta.use("/productos", ProductosRuta);
   ruta.use("/lotes", LotesRuta);
   ruta.use("/ventas", VentasRuta);
+  ruta.use("/clientes", ClientesRuta);
 }
 
 module.exports = routes;

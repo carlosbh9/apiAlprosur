@@ -5,7 +5,7 @@ const boomManejaError = require('../middlewares/error.middleware');
 
 const {models} = require('../lib/sequelize');
 const venta = require('../db/modelos');
-//const pool = require('../lib/postgres.pool');
+
 
 class VentasService{
 
@@ -17,7 +17,7 @@ class VentasService{
     const nuevaVenta ={
       ...venta
     }
-      const {cliente , fecha, monto }= nuevaVenta;
+      const {cliente , fecha, monto,clienteId }= nuevaVenta;
       const salida = await models.venta.create(nuevaVenta);
       return salida;
   };
@@ -65,5 +65,6 @@ class VentasService{
     return data;
   };
 }
+
 
 module.exports = VentasService
